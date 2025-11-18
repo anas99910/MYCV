@@ -1,660 +1,701 @@
-import React, { useState } from 'react';
-import { 
-  Mail, 
-  Phone, 
-  MapPin, 
-  Linkedin, 
-  Github, 
-  Server, 
-  Shield, 
-  Users, 
-  Clock, 
-  Terminal, 
-  Database, 
-  Globe, 
-  ChevronDown, 
-  Menu, 
-  X, 
-  Briefcase, 
-  GraduationCap, 
-  Cpu,
-  Moon,
-  Sun,
-  PieChart,
-  Wallet,
-  TrendingUp,
-  Printer,
-  Lock,
-  Calendar
-} from 'lucide-react';
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anas Ben Chikhe - Portfolio</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
 
-const Portfolio = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(true);
+    <!-- React & ReactDOM -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    
+    <!-- Babel (to compile JSX in browser) -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
-  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
-  const toggleTheme = () => setIsDarkMode(!isDarkMode);
+    <!-- Icons (Lucide via UNPKG for direct SVG use) -->
+    <script src="https://unpkg.com/lucide@latest"></script>
 
-  const navigation = [
-    { name: 'About', href: '#about' },
-    { name: 'Experience', href: '#experience' },
-    { name: 'Projects', href: '#projects' },
-    { name: 'Skills', href: '#skills' },
-    { name: 'Contact', href: '#contact' },
-  ];
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        /* Smooth scrolling */
+        html { scroll-behavior: smooth; }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 transition-colors duration-300">
+    <div id="root"></div>
 
-  return (
-    // We wrap the entire app in a div that conditionally applies the 'dark' class
-    <div className={isDarkMode ? "dark" : ""}>
-      <div className="min-h-screen bg-slate-50 dark:bg-slate-950 font-sans text-slate-900 dark:text-slate-100 selection:bg-blue-200 dark:selection:bg-blue-900 transition-colors duration-300">
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+
+        // --- ICONS ---
+        // Since we can't import from lucide-react in a simple HTML file, 
+        // we create simple wrapper components that render the SVGs.
         
-        {/* Navigation */}
-        <nav className="sticky top-0 z-50 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 shadow-sm transition-colors duration-300">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex justify-between h-16 items-center">
-              <div className="flex-shrink-0 flex items-center">
-                <span className="text-2xl font-bold text-blue-700 dark:text-blue-500 tracking-tight">ABC<span className="text-slate-800 dark:text-slate-200">.tech</span></span>
-              </div>
-              
-              {/* Desktop Nav */}
-              <div className="hidden md:flex space-x-8 items-center">
-                {navigation.map((item) => (
-                  <a key={item.name} href={item.href} className="text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-slate-800 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200">
-                    {item.name}
-                  </a>
-                ))}
-                {/* Dark Mode Toggle Desktop */}
-                <button 
-                  onClick={toggleTheme} 
-                  className="p-2 rounded-full text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
-                  aria-label="Toggle Dark Mode"
-                >
-                  {isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
-                </button>
-              </div>
+        const Icon = ({ name, size = 24, className = "" }) => {
+            const [svgContent, setSvgContent] = useState('');
 
-              {/* Mobile menu button & Toggle */}
-              <div className="md:hidden flex items-center space-x-4">
-                <button 
-                  onClick={toggleTheme} 
-                  className="p-2 rounded-full text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
-                >
-                  {isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
-                </button>
-                <button onClick={toggleMenu} className="text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 p-2">
-                  {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-                </button>
-              </div>
-            </div>
-          </div>
+            useEffect(() => {
+                // Use the global lucide object to get the SVG string
+                if (window.lucide && window.lucide.icons[name]) {
+                    const icon = window.lucide.icons[name];
+                    // Convert the icon definition to an SVG string
+                    const svg = icon.toSvg({ 
+                        class: className, 
+                        width: size, 
+                        height: size, 
+                        "stroke-width": 2 
+                    });
+                    setSvgContent(svg);
+                }
+            }, [name, size, className]);
 
-          {/* Mobile Nav */}
-          {isMenuOpen && (
-            <div className="md:hidden bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800">
-              <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                {navigation.map((item) => (
-                  <a 
-                    key={item.name} 
-                    href={item.href} 
-                    className="block text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-slate-800 px-3 py-2 rounded-md text-base font-medium"
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    {item.name}
-                  </a>
-                ))}
-              </div>
-            </div>
-          )}
-        </nav>
+            return <span dangerouslySetInnerHTML={{ __html: svgContent }} className="inline-flex items-center justify-center" />;
+        };
 
-        {/* Hero Section */}
-        <section className="relative bg-slate-900 dark:bg-black text-white py-24 lg:py-32 overflow-hidden transition-colors duration-300">
-          <div className="absolute inset-0 opacity-10">
-            <div className="absolute top-0 left-0 w-full h-full bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]"></div>
-          </div>
-          
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div className="lg:grid lg:grid-cols-12 lg:gap-8 items-center">
-              <div className="sm:text-center md:max-w-2xl md:mx-auto lg:col-span-7 lg:text-left">
-                <div className="inline-flex items-center px-3 py-1 rounded-full border border-blue-500 bg-blue-500/20 text-blue-300 text-sm font-medium mb-6">
-                  <span className="flex h-2 w-2 rounded-full bg-green-400 mr-2 animate-pulse"></span>
-                  Available for IT Support & Field Ops Roles
-                </div>
-                <h1 className="text-4xl tracking-tight font-extrabold sm:text-5xl md:text-6xl lg:text-5xl xl:text-6xl">
-                  <span className="block">Hi, I'm Anas Ben Chikhe</span>
-                  <span className="block text-blue-400 mt-2">Technical Field Support Engineer</span>
-                </h1>
-                <p className="mt-4 text-lg text-slate-300 sm:mt-6">
-                  Leveraging expertise in incident management, system integration, and user satisfaction to enhance operational efficiency in dynamic environments.
-                </p>
-                <div className="mt-8 sm:max-w-lg sm:mx-auto sm:text-center lg:text-left lg:mx-0 flex flex-col sm:flex-row gap-4">
-                  <a href="#contact" className="inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 md:py-4 md:text-lg shadow-lg shadow-blue-900/50 transition-all hover:scale-105">
-                    Contact Me
-                  </a>
-                  <a href="#experience" className="inline-flex items-center justify-center px-8 py-3 border border-slate-500 text-base font-medium rounded-md text-slate-200 hover:bg-slate-800 hover:text-white md:py-4 md:text-lg transition-all">
-                    View Experience
-                  </a>
-                </div>
-              </div>
-              <div className="mt-12 relative sm:max-w-lg sm:mx-auto lg:mt-0 lg:max-w-none lg:mx-0 lg:col-span-5 lg:flex lg:items-center">
-                {/* Abstract IT Graphic */}
-                <div className="relative mx-auto w-full rounded-lg shadow-lg lg:max-w-md">
-                    <div className="relative block w-full bg-gradient-to-br from-blue-600 to-slate-800 rounded-lg overflow-hidden p-8 border border-slate-600">
-                      <div className="flex items-center space-x-2 mb-6">
-                          <div className="w-3 h-3 rounded-full bg-red-500"></div>
-                          <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
-                          <div className="w-3 h-3 rounded-full bg-green-500"></div>
-                      </div>
-                      <div className="space-y-4 font-mono text-sm text-blue-100">
-                          <p><span className="text-green-400">$</span> user.name = "Anas Ben Chikhe"</p>
-                          <p><span className="text-green-400">$</span> user.role = "Support Specialist"</p>
-                          <p><span className="text-green-400">$</span> user.location = "Casablanca, MA"</p>
-                          <p><span className="text-green-400">$</span> skills.load([ "Jira", "ITIL", "Network" ])</p>
-                          <p className="animate-pulse text-blue-400">_</p>
-                      </div>
-                    </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+        // --- MAIN COMPONENT ---
 
-        {/* About Section */}
-        <section id="about" className="py-20 bg-white dark:bg-slate-900 transition-colors duration-300">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="lg:text-center mb-16">
-              <h2 className="text-base text-blue-600 dark:text-blue-400 font-semibold tracking-wide uppercase">About Me</h2>
-              <p className="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-slate-900 dark:text-white sm:text-4xl">
-                Dedicated to Operational Excellence
-              </p>
-              <p className="mt-4 max-w-2xl text-xl text-slate-500 dark:text-slate-400 lg:mx-auto">
-                I am an IT professional based in Casablanca with a passion for solving complex technical issues and optimizing systems.
-              </p>
-            </div>
+        const Portfolio = () => {
+            const [isMenuOpen, setIsMenuOpen] = useState(false);
+            const [isDarkMode, setIsDarkMode] = useState(true);
 
-            <div className="mt-10">
-              <dl className="space-y-10 md:space-y-0 md:grid md:grid-cols-3 md:gap-x-8 md:gap-y-10">
-                <div className="relative bg-slate-50 dark:bg-slate-800 p-6 rounded-xl border border-slate-100 dark:border-slate-700 shadow-sm hover:shadow-md transition-all">
-                  <dt>
-                    <div className="absolute flex items-center justify-center h-12 w-12 rounded-md bg-blue-500 text-white">
-                      <Shield className="h-6 w-6" aria-hidden="true" />
-                    </div>
-                    <p className="ml-16 text-lg leading-6 font-medium text-slate-900 dark:text-white">Incident Management</p>
-                  </dt>
-                  <dd className="mt-2 ml-16 text-base text-slate-500 dark:text-slate-400">
-                    Expertise in tracking, prioritizing, and resolving incidents using Jira, ensuring minimal downtime and swift resolution.
-                  </dd>
-                </div>
+            const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+            const toggleTheme = () => setIsDarkMode(!isDarkMode);
 
-                <div className="relative bg-slate-50 dark:bg-slate-800 p-6 rounded-xl border border-slate-100 dark:border-slate-700 shadow-sm hover:shadow-md transition-all">
-                  <dt>
-                    <div className="absolute flex items-center justify-center h-12 w-12 rounded-md bg-blue-500 text-white">
-                      <Server className="h-6 w-6" aria-hidden="true" />
-                    </div>
-                    <p className="ml-16 text-lg leading-6 font-medium text-slate-900 dark:text-white">System Integration</p>
-                  </dt>
-                  <dd className="mt-2 ml-16 text-base text-slate-500 dark:text-slate-400">
-                    Proven track record of deploying software solutions, reducing rollout times by 40% and boosting user adoption.
-                  </dd>
-                </div>
+            const navigation = [
+                { name: 'About', href: '#about' },
+                { name: 'Experience', href: '#experience' },
+                { name: 'Projects', href: '#projects' },
+                { name: 'Skills', href: '#skills' },
+                { name: 'Contact', href: '#contact' },
+            ];
 
-                <div className="relative bg-slate-50 dark:bg-slate-800 p-6 rounded-xl border border-slate-100 dark:border-slate-700 shadow-sm hover:shadow-md transition-all">
-                  <dt>
-                    <div className="absolute flex items-center justify-center h-12 w-12 rounded-md bg-blue-500 text-white">
-                      <Users className="h-6 w-6" aria-hidden="true" />
-                    </div>
-                    <p className="ml-16 text-lg leading-6 font-medium text-slate-900 dark:text-white">User Support & Training</p>
-                  </dt>
-                  <dd className="mt-2 ml-16 text-base text-slate-500 dark:text-slate-400">
-                    Skilled at simplifying complex IT concepts for non-technical staff, improving overall user satisfaction and efficiency.
-                  </dd>
-                </div>
-              </dl>
-            </div>
-          </div>
-        </section>
+            return (
+                <div className={isDarkMode ? "dark" : ""}>
+                    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 font-sans text-slate-900 dark:text-slate-100 selection:bg-blue-200 dark:selection:bg-blue-900 transition-colors duration-300">
+                        
+                        {/* Navigation */}
+                        <nav className="sticky top-0 z-50 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 shadow-sm transition-colors duration-300">
+                            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                                <div className="flex justify-between h-16 items-center">
+                                    <div className="flex-shrink-0 flex items-center">
+                                        <span className="text-2xl font-bold text-blue-700 dark:text-blue-500 tracking-tight">ABC<span className="text-slate-800 dark:text-slate-200">.tech</span></span>
+                                    </div>
+                                    
+                                    {/* Desktop Nav */}
+                                    <div className="hidden md:flex space-x-8 items-center">
+                                        {navigation.map((item) => (
+                                            <a key={item.name} href={item.href} className="text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-slate-800 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200">
+                                                {item.name}
+                                            </a>
+                                        ))}
+                                        {/* Dark Mode Toggle Desktop */}
+                                        <button 
+                                            onClick={toggleTheme} 
+                                            className="p-2 rounded-full text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                                            aria-label="Toggle Dark Mode"
+                                        >
+                                            {isDarkMode ? <Icon name="sun" size={20} /> : <Icon name="moon" size={20} />}
+                                        </button>
+                                    </div>
 
-        {/* Experience Section */}
-        <section id="experience" className="py-20 bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="lg:text-center mb-12">
-              <h2 className="text-base text-blue-600 dark:text-blue-400 font-semibold tracking-wide uppercase">Career Path</h2>
-              <p className="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-slate-900 dark:text-white sm:text-4xl">
-                Professional Experience
-              </p>
-            </div>
-
-            <div className="relative border-l-4 border-blue-200 dark:border-blue-900 ml-4 md:ml-12 space-y-12">
-              
-              {/* Experience Item 1 */}
-              <div className="relative pl-8 md:pl-12 group">
-                <div className="absolute -left-[13px] top-0 bg-blue-600 h-6 w-6 rounded-full border-4 border-slate-50 dark:border-slate-950 group-hover:scale-125 transition-transform"></div>
-                
-                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-2">
-                  <h3 className="text-xl font-bold text-slate-900 dark:text-white">IT Support Specialist</h3>
-                  <span className="text-sm font-medium text-blue-600 dark:text-blue-300 bg-blue-100 dark:bg-blue-900/30 px-3 py-1 rounded-full w-fit mt-2 sm:mt-0">2020 - Present</span>
-                </div>
-                <h4 className="text-lg font-medium text-slate-600 dark:text-slate-400 mb-4">SITA, Mohammed V International Airport | Casablanca</h4>
-                
-                <div className="bg-white dark:bg-slate-900 p-6 rounded-lg shadow-sm border border-slate-200 dark:border-slate-800 transition-colors">
-                  <ul className="space-y-3 text-slate-600 dark:text-slate-300 list-disc list-inside">
-                    <li>Led software deployments, cutting rollout time by <span className="font-bold text-slate-800 dark:text-slate-200">40%</span> and increasing user adoption by <span className="font-bold text-slate-800 dark:text-slate-200">50%</span>.</li>
-                    <li>Delivered Level 1 and 2 technical support with high efficiency and satisfaction.</li>
-                    <li>Implemented client-server systems for airline operations (Amadeus, HP OPAT, Sabre).</li>
-                    <li>Developed internal knowledge resources to enable self-service and reduce repetitive issues.</li>
-                    <li>Managed IT security, including antivirus updates and user access control via GPO.</li>
-                  </ul>
-                </div>
-              </div>
-
-              {/* Experience Item 2 */}
-              <div className="relative pl-8 md:pl-12 group">
-                <div className="absolute -left-[13px] top-0 bg-slate-400 dark:bg-slate-600 h-6 w-6 rounded-full border-4 border-slate-50 dark:border-slate-950 group-hover:bg-blue-400 transition-colors"></div>
-                
-                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-2">
-                  <h3 className="text-xl font-bold text-slate-900 dark:text-white">IT Help Desk</h3>
-                  <span className="text-sm font-medium text-slate-600 dark:text-slate-400 bg-slate-200 dark:bg-slate-800 px-3 py-1 rounded-full w-fit mt-2 sm:mt-0">2019 - 2020</span>
-                </div>
-                <h4 className="text-lg font-medium text-slate-600 dark:text-slate-400 mb-4">SITA, Mohammed V International Airport | Casablanca</h4>
-                
-                <div className="bg-white dark:bg-slate-900 p-6 rounded-lg shadow-sm border border-slate-200 dark:border-slate-800 transition-colors">
-                  <ul className="space-y-3 text-slate-600 dark:text-slate-300 list-disc list-inside">
-                    <li>Managed incident resolution using Jira, reducing average resolution time by <span className="font-bold text-slate-800 dark:text-slate-200">30%</span>.</li>
-                    <li>Provided first-line support for hardware, software, and network connectivity issues.</li>
-                    <li>Created detailed monthly statistics, leading to a <span className="font-bold text-slate-800 dark:text-slate-200">20%</span> reduction in recurring issues.</li>
-                    <li> improved user satisfaction by <span className="font-bold text-slate-800 dark:text-slate-200">15%</span> through effective communication.</li>
-                  </ul>
-                </div>
-              </div>
-
-            </div>
-          </div>
-        </section>
-
-        {/* Projects Section */}
-        <section id="projects" className="py-20 bg-white dark:bg-slate-900 overflow-hidden transition-colors duration-300">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-16">
-              <h2 className="text-base text-blue-600 dark:text-blue-400 font-semibold tracking-wide uppercase">Innovation</h2>
-              <p className="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-slate-900 dark:text-white sm:text-4xl">
-                Featured Projects
-              </p>
-            </div>
-
-            <div className="space-y-24">
-              
-              {/* Project 1: Technician Planning App - UPDATED TO MATCH BEST VERSION */}
-              <div className="lg:grid lg:grid-cols-2 lg:gap-16 items-center">
-                {/* Project Info */}
-                <div>
-                  <div className="inline-flex items-center px-3 py-1 rounded-full bg-emerald-900/30 border border-emerald-700 text-emerald-400 text-xs font-bold mb-4">
-                     DEPLOYED & IN USE
-                  </div>
-                  <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">CMN-TECH-PLANNING</h3>
-                  <p className="text-slate-600 dark:text-slate-400 mb-6">
-                    A robust, dark-mode optimized web application currently automating technician scheduling. Features complex shift rotation logic, temporary assignment tracking, and print-ready monthly exports.
-                  </p>
-                  
-                  <div className="flex flex-wrap gap-2 mb-8">
-                    <span className="px-3 py-1 bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-md text-sm font-medium flex items-center gap-1"><Terminal size={14}/> Vanilla JS</span>
-                    <span className="px-3 py-1 bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300 rounded-md text-sm font-medium flex items-center gap-1"><Database size={14}/> Firebase NoSQL</span>
-                    <span className="px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-md text-sm font-medium flex items-center gap-1"><Briefcase size={14}/> Tailwind CSS</span>
-                  </div>
-
-                  <div className="space-y-4">
-                    <div className="flex items-start">
-                      <div className="flex-shrink-0">
-                        <div className="flex items-center justify-center h-8 w-8 rounded-md bg-purple-100 dark:bg-purple-900 text-purple-600 dark:text-purple-300">
-                          <Lock size={18} />
-                        </div>
-                      </div>
-                      <div className="ml-4">
-                        <h5 className="text-lg font-medium text-slate-900 dark:text-white">Secure Admin Panel</h5>
-                        <p className="mt-1 text-slate-500 dark:text-slate-400 text-sm">Password-protected administration for managing technician rosters, leave balances, and backup/restore functionality.</p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-start">
-                      <div className="flex-shrink-0">
-                        <div className="flex items-center justify-center h-8 w-8 rounded-md bg-teal-100 dark:bg-teal-900 text-teal-600 dark:text-teal-300">
-                          <Calendar size={18} />
-                        </div>
-                      </div>
-                      <div className="ml-4">
-                        <h5 className="text-lg font-medium text-slate-900 dark:text-white">Smart Rotation Logic</h5>
-                        <p className="mt-1 text-slate-500 dark:text-slate-400 text-sm">Automated 5-group rotation algorithm with handling for temporary transfers and holiday indicators.</p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-start">
-                      <div className="flex-shrink-0">
-                        <div className="flex items-center justify-center h-8 w-8 rounded-md bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300">
-                          <Printer size={18} />
-                        </div>
-                      </div>
-                      <div className="ml-4">
-                        <h5 className="text-lg font-medium text-slate-900 dark:text-white">Printable Exports</h5>
-                        <p className="mt-1 text-slate-500 dark:text-slate-400 text-sm">Generates clean, high-contrast printable schedules specifically formatted for physical bulletin boards.</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                
-                {/* Mockup Visualization - UPDATED TO MATCH UPLOADED FILE */}
-                <div className="mt-10 lg:mt-0">
-                  <div className="rounded-lg shadow-2xl p-1 bg-gradient-to-br from-zinc-700 via-zinc-900 to-black border border-zinc-800 transform rotate-1 hover:rotate-0 transition-transform duration-500">
-                    {/* Fake Browser Header */}
-                    <div className="bg-zinc-900 h-8 rounded-t-md flex items-center px-4 space-x-2 border-b border-zinc-800">
-                        <div className="w-3 h-3 rounded-full bg-red-500"></div>
-                        <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
-                        <div className="w-3 h-3 rounded-full bg-green-500"></div>
-                        <div className="ml-4 bg-zinc-800 w-1/2 h-4 rounded text-[10px] flex items-center px-2 text-zinc-500 font-mono">cmn-tech-planning.app</div>
-                    </div>
-                    {/* App Content - Dark Mode / Glassmorphism */}
-                    <div className="bg-gradient-to-b from-[#3A3A3A] via-[#202020] to-[#111111] h-80 rounded-b-md overflow-hidden relative p-6 flex flex-col items-center font-sans">
-                        <div className="w-full max-w-xs">
-                          {/* Main Title */}
-                          <div className="text-center mb-4">
-                             <div className="text-xs text-zinc-400 tracking-widest mb-1">CMN-TECH-PLANNING</div>
-                             <div className="text-lg font-bold text-white tracking-wide" style={{fontFamily: 'monospace'}}>ON DUTY TODAY</div>
-                          </div>
-                          
-                          {/* Dashboard Card */}
-                          <div className="bg-[#2D2D35] border border-white/10 rounded-xl p-4 shadow-lg mb-4">
-                             <div className="flex justify-between items-center mb-3 border-b border-white/10 pb-2">
-                                <span className="text-zinc-300 font-bold text-sm">📅 TODAY</span>
-                                <span className="bg-[#4A4458] text-[#C7C0E0] text-[10px] px-2 py-0.5 rounded-full border border-[#635C7C]">MIKE GRP</span>
-                             </div>
-                             <div className="space-y-2">
-                                <div className="bg-[#373741] p-2 rounded flex justify-between items-center border border-white/5">
-                                   <span className="text-xs text-zinc-200">Jhon C.</span>
-                                   <span className="text-[10px] font-bold text-emerald-300">Zone A</span>
+                                    {/* Mobile menu button & Toggle */}
+                                    <div className="md:hidden flex items-center space-x-4">
+                                        <button 
+                                            onClick={toggleTheme} 
+                                            className="p-2 rounded-full text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                                        >
+                                            {isDarkMode ? <Icon name="sun" size={20} /> : <Icon name="moon" size={20} />}
+                                        </button>
+                                        <button onClick={toggleMenu} className="text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 p-2">
+                                            {isMenuOpen ? <Icon name="x" size={24} /> : <Icon name="menu" size={24} />}
+                                        </button>
+                                    </div>
                                 </div>
-                                <div className="bg-[#373741] p-2 rounded flex justify-between items-center border border-white/5">
-                                   <span className="text-xs text-zinc-200">Alex</span>
-                                   <span className="text-[10px] font-bold text-blue-300">Zone B</span>
+                            </div>
+
+                            {/* Mobile Nav */}
+                            {isMenuOpen && (
+                                <div className="md:hidden bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800">
+                                    <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                                        {navigation.map((item) => (
+                                            <a 
+                                                key={item.name} 
+                                                href={item.href} 
+                                                className="block text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-slate-800 px-3 py-2 rounded-md text-base font-medium"
+                                                onClick={() => setIsMenuOpen(false)}
+                                            >
+                                                {item.name}
+                                            </a>
+                                        ))}
+                                    </div>
                                 </div>
-                             </div>
-                          </div>
+                            )}
+                        </nav>
 
-                          {/* Controls */}
-                          <div className="flex justify-center gap-2">
-                             <div className="h-8 w-24 bg-zinc-700/50 rounded backdrop-blur-sm border border-white/10"></div>
-                             <div className="h-8 w-24 bg-teal-600/40 rounded backdrop-blur-sm border border-teal-800/50"></div>
-                          </div>
-                        </div>
+                        {/* Hero Section */}
+                        <section className="relative bg-slate-900 dark:bg-black text-white py-24 lg:py-32 overflow-hidden transition-colors duration-300">
+                            <div className="absolute inset-0 opacity-10">
+                                <div className="absolute top-0 left-0 w-full h-full bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]"></div>
+                            </div>
+                            
+                            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                                <div className="lg:grid lg:grid-cols-12 lg:gap-8 items-center">
+                                    <div className="sm:text-center md:max-w-2xl md:mx-auto lg:col-span-7 lg:text-left">
+                                        <div className="inline-flex items-center px-3 py-1 rounded-full border border-blue-500 bg-blue-500/20 text-blue-300 text-sm font-medium mb-6">
+                                            <span className="flex h-2 w-2 rounded-full bg-green-400 mr-2 animate-pulse"></span>
+                                            Available for IT Support & Field Ops Roles
+                                        </div>
+                                        <h1 className="text-4xl tracking-tight font-extrabold sm:text-5xl md:text-6xl lg:text-5xl xl:text-6xl">
+                                            <span className="block">Hi, I'm Anas Ben Chikhe</span>
+                                            <span className="block text-blue-400 mt-2">Technical Field Support Engineer</span>
+                                        </h1>
+                                        <p className="mt-4 text-lg text-slate-300 sm:mt-6">
+                                            Leveraging expertise in incident management, system integration, and user satisfaction to enhance operational efficiency in dynamic environments.
+                                        </p>
+                                        <div className="mt-8 sm:max-w-lg sm:mx-auto sm:text-center lg:text-left lg:mx-0 flex flex-col sm:flex-row gap-4">
+                                            <a href="#contact" className="inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 md:py-4 md:text-lg shadow-lg shadow-blue-900/50 transition-all hover:scale-105">
+                                                Contact Me
+                                            </a>
+                                            <a href="#experience" className="inline-flex items-center justify-center px-8 py-3 border border-slate-500 text-base font-medium rounded-md text-slate-200 hover:bg-slate-800 hover:text-white md:py-4 md:text-lg transition-all">
+                                                View Experience
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div className="mt-12 relative sm:max-w-lg sm:mx-auto lg:mt-0 lg:max-w-none lg:mx-0 lg:col-span-5 lg:flex lg:items-center">
+                                        {/* Abstract IT Graphic */}
+                                        <div className="relative mx-auto w-full rounded-lg shadow-lg lg:max-w-md">
+                                            <div className="relative block w-full bg-gradient-to-br from-blue-600 to-slate-800 rounded-lg overflow-hidden p-8 border border-slate-600">
+                                                <div className="flex items-center space-x-2 mb-6">
+                                                    <div className="w-3 h-3 rounded-full bg-red-500"></div>
+                                                    <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+                                                    <div className="w-3 h-3 rounded-full bg-green-500"></div>
+                                                </div>
+                                                <div className="space-y-4 font-mono text-sm text-blue-100">
+                                                    <p><span className="text-green-400">$</span> user.name = "Anas Ben Chikhe"</p>
+                                                    <p><span className="text-green-400">$</span> user.role = "Support Specialist"</p>
+                                                    <p><span className="text-green-400">$</span> user.location = "Casablanca, MA"</p>
+                                                    <p><span className="text-green-400">$</span> skills.load([ "Jira", "ITIL", "Network" ])</p>
+                                                    <p className="animate-pulse text-blue-400">_</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        {/* About Section */}
+                        <section id="about" className="py-20 bg-white dark:bg-slate-900 transition-colors duration-300">
+                            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                                <div className="lg:text-center mb-16">
+                                    <h2 className="text-base text-blue-600 dark:text-blue-400 font-semibold tracking-wide uppercase">About Me</h2>
+                                    <p className="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-slate-900 dark:text-white sm:text-4xl">
+                                        Dedicated to Operational Excellence
+                                    </p>
+                                    <p className="mt-4 max-w-2xl text-xl text-slate-500 dark:text-slate-400 lg:mx-auto">
+                                        I am an IT professional based in Casablanca with a passion for solving complex technical issues and optimizing systems.
+                                    </p>
+                                </div>
+
+                                <div className="mt-10">
+                                    <dl className="space-y-10 md:space-y-0 md:grid md:grid-cols-3 md:gap-x-8 md:gap-y-10">
+                                        <div className="relative bg-slate-50 dark:bg-slate-800 p-6 rounded-xl border border-slate-100 dark:border-slate-700 shadow-sm hover:shadow-md transition-all">
+                                            <dt>
+                                                <div className="absolute flex items-center justify-center h-12 w-12 rounded-md bg-blue-500 text-white">
+                                                    <Icon name="shield" className="h-6 w-6" />
+                                                </div>
+                                                <p className="ml-16 text-lg leading-6 font-medium text-slate-900 dark:text-white">Incident Management</p>
+                                            </dt>
+                                            <dd className="mt-2 ml-16 text-base text-slate-500 dark:text-slate-400">
+                                                Expertise in tracking, prioritizing, and resolving incidents using Jira, ensuring minimal downtime and swift resolution.
+                                            </dd>
+                                        </div>
+
+                                        <div className="relative bg-slate-50 dark:bg-slate-800 p-6 rounded-xl border border-slate-100 dark:border-slate-700 shadow-sm hover:shadow-md transition-all">
+                                            <dt>
+                                                <div className="absolute flex items-center justify-center h-12 w-12 rounded-md bg-blue-500 text-white">
+                                                    <Icon name="server" className="h-6 w-6" />
+                                                </div>
+                                                <p className="ml-16 text-lg leading-6 font-medium text-slate-900 dark:text-white">System Integration</p>
+                                            </dt>
+                                            <dd className="mt-2 ml-16 text-base text-slate-500 dark:text-slate-400">
+                                                Proven track record of deploying software solutions, reducing rollout times by 40% and boosting user adoption.
+                                            </dd>
+                                        </div>
+
+                                        <div className="relative bg-slate-50 dark:bg-slate-800 p-6 rounded-xl border border-slate-100 dark:border-slate-700 shadow-sm hover:shadow-md transition-all">
+                                            <dt>
+                                                <div className="absolute flex items-center justify-center h-12 w-12 rounded-md bg-blue-500 text-white">
+                                                    <Icon name="users" className="h-6 w-6" />
+                                                </div>
+                                                <p className="ml-16 text-lg leading-6 font-medium text-slate-900 dark:text-white">User Support & Training</p>
+                                            </dt>
+                                            <dd className="mt-2 ml-16 text-base text-slate-500 dark:text-slate-400">
+                                                Skilled at simplifying complex IT concepts for non-technical staff, improving overall user satisfaction and efficiency.
+                                            </dd>
+                                        </div>
+                                    </dl>
+                                </div>
+                            </div>
+                        </section>
+
+                        {/* Experience Section */}
+                        <section id="experience" className="py-20 bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
+                            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                                <div className="lg:text-center mb-12">
+                                    <h2 className="text-base text-blue-600 dark:text-blue-400 font-semibold tracking-wide uppercase">Career Path</h2>
+                                    <p className="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-slate-900 dark:text-white sm:text-4xl">
+                                        Professional Experience
+                                    </p>
+                                </div>
+
+                                <div className="relative border-l-4 border-blue-200 dark:border-blue-900 ml-4 md:ml-12 space-y-12">
+                                    
+                                    {/* Experience Item 1 */}
+                                    <div className="relative pl-8 md:pl-12 group">
+                                        <div className="absolute -left-[13px] top-0 bg-blue-600 h-6 w-6 rounded-full border-4 border-slate-50 dark:border-slate-950 group-hover:scale-125 transition-transform"></div>
+                                        
+                                        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-2">
+                                            <h3 className="text-xl font-bold text-slate-900 dark:text-white">IT Support Specialist</h3>
+                                            <span className="text-sm font-medium text-blue-600 dark:text-blue-300 bg-blue-100 dark:bg-blue-900/30 px-3 py-1 rounded-full w-fit mt-2 sm:mt-0">2020 - Present</span>
+                                        </div>
+                                        <h4 className="text-lg font-medium text-slate-600 dark:text-slate-400 mb-4">SITA, Mohammed V International Airport | Casablanca</h4>
+                                        
+                                        <div className="bg-white dark:bg-slate-900 p-6 rounded-lg shadow-sm border border-slate-200 dark:border-slate-800 transition-colors">
+                                            <ul className="space-y-3 text-slate-600 dark:text-slate-300 list-disc list-inside">
+                                                <li>Led software deployments, cutting rollout time by <span className="font-bold text-slate-800 dark:text-slate-200">40%</span> and increasing user adoption by <span className="font-bold text-slate-800 dark:text-slate-200">50%</span>.</li>
+                                                <li>Delivered Level 1 and 2 technical support with high efficiency and satisfaction.</li>
+                                                <li>Implemented client-server systems for airline operations (Amadeus, HP OPAT, Sabre).</li>
+                                                <li>Developed internal knowledge resources to enable self-service and reduce repetitive issues.</li>
+                                                <li>Managed IT security, including antivirus updates and user access control via GPO.</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    {/* Experience Item 2 */}
+                                    <div className="relative pl-8 md:pl-12 group">
+                                        <div className="absolute -left-[13px] top-0 bg-slate-400 dark:bg-slate-600 h-6 w-6 rounded-full border-4 border-slate-50 dark:border-slate-950 group-hover:bg-blue-400 transition-colors"></div>
+                                        
+                                        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-2">
+                                            <h3 className="text-xl font-bold text-slate-900 dark:text-white">IT Help Desk</h3>
+                                            <span className="text-sm font-medium text-slate-600 dark:text-slate-400 bg-slate-200 dark:bg-slate-800 px-3 py-1 rounded-full w-fit mt-2 sm:mt-0">2019 - 2020</span>
+                                        </div>
+                                        <h4 className="text-lg font-medium text-slate-600 dark:text-slate-400 mb-4">SITA, Mohammed V International Airport | Casablanca</h4>
+                                        
+                                        <div className="bg-white dark:bg-slate-900 p-6 rounded-lg shadow-sm border border-slate-200 dark:border-slate-800 transition-colors">
+                                            <ul className="space-y-3 text-slate-600 dark:text-slate-300 list-disc list-inside">
+                                                <li>Managed incident resolution using Jira, reducing average resolution time by <span className="font-bold text-slate-800 dark:text-slate-200">30%</span>.</li>
+                                                <li>Provided first-line support for hardware, software, and network connectivity issues.</li>
+                                                <li>Created detailed monthly statistics, leading to a <span className="font-bold text-slate-800 dark:text-slate-200">20%</span> reduction in recurring issues.</li>
+                                                <li> improved user satisfaction by <span className="font-bold text-slate-800 dark:text-slate-200">15%</span> through effective communication.</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </section>
+
+                        {/* Projects Section */}
+                        <section id="projects" className="py-20 bg-white dark:bg-slate-900 overflow-hidden transition-colors duration-300">
+                            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                                <div className="text-center mb-16">
+                                    <h2 className="text-base text-blue-600 dark:text-blue-400 font-semibold tracking-wide uppercase">Innovation</h2>
+                                    <p className="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-slate-900 dark:text-white sm:text-4xl">
+                                        Featured Projects
+                                    </p>
+                                </div>
+
+                                <div className="space-y-24">
+                                    
+                                    {/* Project 1: Technician Planning App */}
+                                    <div className="lg:grid lg:grid-cols-2 lg:gap-16 items-center">
+                                        <div>
+                                            <div className="inline-flex items-center px-3 py-1 rounded-full bg-emerald-900/30 border border-emerald-700 text-emerald-400 text-xs font-bold mb-4">
+                                                DEPLOYED & IN USE
+                                            </div>
+                                            <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">CMN-TECH-PLANNING</h3>
+                                            <p className="text-slate-600 dark:text-slate-400 mb-6">
+                                                A robust, dark-mode optimized web application currently automating technician scheduling. Features complex shift rotation logic, temporary assignment tracking, and print-ready monthly exports.
+                                            </p>
+                                            
+                                            <div className="flex flex-wrap gap-2 mb-8">
+                                                <span className="px-3 py-1 bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-md text-sm font-medium flex items-center gap-1"><Icon name="terminal" size={14}/> Vanilla JS</span>
+                                                <span className="px-3 py-1 bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300 rounded-md text-sm font-medium flex items-center gap-1"><Icon name="database" size={14}/> Firebase NoSQL</span>
+                                                <span className="px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-md text-sm font-medium flex items-center gap-1"><Icon name="briefcase" size={14}/> Tailwind CSS</span>
+                                            </div>
+
+                                            <div className="space-y-4">
+                                                <div className="flex items-start">
+                                                    <div className="flex-shrink-0">
+                                                        <div className="flex items-center justify-center h-8 w-8 rounded-md bg-purple-100 dark:bg-purple-900 text-purple-600 dark:text-purple-300">
+                                                            <Icon name="lock" size={18} />
+                                                        </div>
+                                                    </div>
+                                                    <div className="ml-4">
+                                                        <h5 className="text-lg font-medium text-slate-900 dark:text-white">Secure Admin Panel</h5>
+                                                        <p className="mt-1 text-slate-500 dark:text-slate-400 text-sm">Password-protected administration for managing technician rosters, leave balances, and backup/restore functionality.</p>
+                                                    </div>
+                                                </div>
+
+                                                <div className="flex items-start">
+                                                    <div className="flex-shrink-0">
+                                                        <div className="flex items-center justify-center h-8 w-8 rounded-md bg-teal-100 dark:bg-teal-900 text-teal-600 dark:text-teal-300">
+                                                            <Icon name="calendar" size={18} />
+                                                        </div>
+                                                    </div>
+                                                    <div className="ml-4">
+                                                        <h5 className="text-lg font-medium text-slate-900 dark:text-white">Smart Rotation Logic</h5>
+                                                        <p className="mt-1 text-slate-500 dark:text-slate-400 text-sm">Automated 5-group rotation algorithm with handling for temporary transfers and holiday indicators.</p>
+                                                    </div>
+                                                </div>
+
+                                                <div className="flex items-start">
+                                                    <div className="flex-shrink-0">
+                                                        <div className="flex items-center justify-center h-8 w-8 rounded-md bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300">
+                                                            <Icon name="printer" size={18} />
+                                                        </div>
+                                                    </div>
+                                                    <div className="ml-4">
+                                                        <h5 className="text-lg font-medium text-slate-900 dark:text-white">Printable Exports</h5>
+                                                        <p className="mt-1 text-slate-500 dark:text-slate-400 text-sm">Generates clean, high-contrast printable schedules specifically formatted for physical bulletin boards.</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        {/* Mockup Visualization */}
+                                        <div className="mt-10 lg:mt-0">
+                                            <div className="rounded-lg shadow-2xl p-1 bg-gradient-to-br from-zinc-700 via-zinc-900 to-black border border-zinc-800 transform rotate-1 hover:rotate-0 transition-transform duration-500">
+                                                {/* Fake Browser Header */}
+                                                <div className="bg-zinc-900 h-8 rounded-t-md flex items-center px-4 space-x-2 border-b border-zinc-800">
+                                                    <div className="w-3 h-3 rounded-full bg-red-500"></div>
+                                                    <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+                                                    <div className="w-3 h-3 rounded-full bg-green-500"></div>
+                                                    <div className="ml-4 bg-zinc-800 w-1/2 h-4 rounded text-[10px] flex items-center px-2 text-zinc-500 font-mono">cmn-tech-planning.app</div>
+                                                </div>
+                                                {/* App Content */}
+                                                <div className="bg-gradient-to-b from-[#3A3A3A] via-[#202020] to-[#111111] h-80 rounded-b-md overflow-hidden relative p-6 flex flex-col items-center font-sans">
+                                                    <div className="w-full max-w-xs">
+                                                        <div className="text-center mb-4">
+                                                            <div className="text-xs text-zinc-400 tracking-widest mb-1">CMN-TECH-PLANNING</div>
+                                                            <div className="text-lg font-bold text-white tracking-wide" style={{fontFamily: 'monospace'}}>ON DUTY TODAY</div>
+                                                        </div>
+                                                        
+                                                        {/* Dashboard Card (Updated Names) */}
+                                                        <div className="bg-[#2D2D35] border border-white/10 rounded-xl p-4 shadow-lg mb-4">
+                                                            <div className="flex justify-between items-center mb-3 border-b border-white/10 pb-2">
+                                                                <span className="text-zinc-300 font-bold text-sm">📅 TODAY</span>
+                                                                <span className="bg-[#4A4458] text-[#C7C0E0] text-[10px] px-2 py-0.5 rounded-full border border-[#635C7C]">MIKE GRP</span>
+                                                            </div>
+                                                            <div className="space-y-2">
+                                                                <div className="bg-[#373741] p-2 rounded flex justify-between items-center border border-white/5">
+                                                                    <span className="text-xs text-zinc-200">Jhon C.</span>
+                                                                    <span className="text-[10px] font-bold text-emerald-300">Zone A</span>
+                                                                </div>
+                                                                <div className="bg-[#373741] p-2 rounded flex justify-between items-center border border-white/5">
+                                                                    <span className="text-xs text-zinc-200">Alex</span>
+                                                                    <span className="text-[10px] font-bold text-blue-300">Zone B</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        {/* Controls */}
+                                                        <div className="flex justify-center gap-2">
+                                                            <div className="h-8 w-24 bg-zinc-700/50 rounded backdrop-blur-sm border border-white/10"></div>
+                                                            <div className="h-8 w-24 bg-teal-600/40 rounded backdrop-blur-sm border border-teal-800/50"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {/* Project 2: Expenso */}
+                                    <div className="lg:grid lg:grid-cols-2 lg:gap-16 items-center">
+                                        <div className="mt-10 lg:mt-0 order-2 lg:order-1">
+                                            <div className="bg-slate-900 rounded-lg shadow-2xl p-2 border border-slate-800 transform -rotate-1 hover:rotate-0 transition-transform duration-500">
+                                                {/* Fake Browser Header */}
+                                                <div className="bg-slate-800 h-8 rounded-t-md flex items-center px-4 space-x-2 mb-0">
+                                                    <div className="w-3 h-3 rounded-full bg-red-500"></div>
+                                                    <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+                                                    <div className="w-3 h-3 rounded-full bg-green-500"></div>
+                                                    <div className="ml-4 bg-slate-900 w-2/3 h-4 rounded-full"></div>
+                                                </div>
+                                                {/* Fake App Content */}
+                                                <div className="bg-[#121212] h-64 md:h-80 rounded-b-md overflow-hidden relative p-4 flex flex-col">
+                                                    <div className="flex justify-between items-center mb-6">
+                                                        <div className="w-32 h-6 bg-slate-800 rounded"></div>
+                                                        <div className="w-8 h-8 bg-green-500 rounded-full"></div>
+                                                    </div>
+                                                    <div className="grid grid-cols-2 gap-4 mb-6">
+                                                        <div className="bg-[#1e1e1e] p-4 rounded-xl border border-slate-800 h-24">
+                                                            <div className="w-16 h-3 bg-slate-600 rounded mb-2"></div>
+                                                            <div className="w-24 h-6 bg-white rounded"></div>
+                                                        </div>
+                                                        <div className="bg-[#1e1e1e] p-4 rounded-xl border border-slate-800 h-24">
+                                                            <div className="w-16 h-3 bg-slate-600 rounded mb-2"></div>
+                                                            <div className="w-full h-2 bg-slate-700 rounded-full mt-2">
+                                                                <div className="w-3/4 h-full bg-green-500 rounded-full"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div className="flex-1 bg-[#1e1e1e] rounded-xl border border-slate-800 p-4 flex items-end justify-around gap-2">
+                                                        <div className="w-8 h-[40%] bg-green-500 rounded-t"></div>
+                                                        <div className="w-8 h-[70%] bg-yellow-500 rounded-t"></div>
+                                                        <div className="w-8 h-[50%] bg-purple-500 rounded-t"></div>
+                                                        <div className="w-8 h-[85%] bg-blue-500 rounded-t"></div>
+                                                        <div className="w-8 h-[30%] bg-red-500 rounded-t"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div className="order-1 lg:order-2">
+                                            <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">Expenso - Sleek Expense Tracker</h3>
+                                            <p className="text-slate-600 dark:text-slate-400 mb-6">
+                                                A comprehensive personal finance application providing real-time income and expense tracking with advanced data visualization and budget management capabilities.
+                                            </p>
+                                            
+                                            <div className="flex flex-wrap gap-2 mb-8">
+                                                <span className="px-3 py-1 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 rounded-md text-sm font-medium flex items-center gap-1"><Icon name="terminal" size={14}/> JavaScript</span>
+                                                <span className="px-3 py-1 bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-300 rounded-md text-sm font-medium flex items-center gap-1"><Icon name="database" size={14}/> Firebase</span>
+                                                <span className="px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-md text-sm font-medium flex items-center gap-1"><Icon name="briefcase" size={14}/> Tailwind CSS</span>
+                                            </div>
+
+                                            <div className="space-y-4">
+                                                <div className="flex items-start">
+                                                    <div className="flex-shrink-0">
+                                                        <div className="flex items-center justify-center h-8 w-8 rounded-md bg-green-100 dark:bg-green-900 text-green-600 dark:text-green-300">
+                                                            <Icon name="pie-chart" size={18} />
+                                                        </div>
+                                                    </div>
+                                                    <div className="ml-4">
+                                                        <h5 className="text-lg font-medium text-slate-900 dark:text-white">Financial Insights</h5>
+                                                        <p className="mt-1 text-slate-500 dark:text-slate-400 text-sm">Interactive bar and pie charts allow users to visualize spending habits and track monthly savings.</p>
+                                                    </div>
+                                                </div>
+
+                                                <div className="flex items-start">
+                                                    <div className="flex-shrink-0">
+                                                        <div className="flex items-center justify-center h-8 w-8 rounded-md bg-green-100 dark:bg-green-900 text-green-600 dark:text-green-300">
+                                                            <Icon name="wallet" size={18} />
+                                                        </div>
+                                                    </div>
+                                                    <div className="ml-4">
+                                                        <h5 className="text-lg font-medium text-slate-900 dark:text-white">Smart Budgeting</h5>
+                                                        <p className="mt-1 text-slate-500 dark:text-slate-400 text-sm">Set monthly budgets with visual progress indicators and recurring expense automation.</p>
+                                                    </div>
+                                                </div>
+
+                                                <div className="flex items-start">
+                                                    <div className="flex-shrink-0">
+                                                        <div className="flex items-center justify-center h-8 w-8 rounded-md bg-green-100 dark:bg-green-900 text-green-600 dark:text-green-300">
+                                                            <Icon name="trending-up" size={18} />
+                                                        </div>
+                                                    </div>
+                                                    <div className="ml-4">
+                                                        <h5 className="text-lg font-medium text-slate-900 dark:text-white">Data Management</h5>
+                                                        <p className="mt-1 text-slate-500 dark:text-slate-400 text-sm">Includes robust export options (CSV/JSON) and secure, password-gated user authentication.</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </section>
+
+                        {/* Education & Skills Grid */}
+                        <section id="skills" className="py-20 bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
+                            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+                                    
+                                    {/* Education */}
+                                    <div>
+                                        <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-8 flex items-center">
+                                            <Icon name="graduation-cap" className="mr-3 text-blue-600 dark:text-blue-400"/> Education
+                                        </h3>
+                                        <div className="space-y-6">
+                                            <div className="bg-white dark:bg-slate-900 p-6 rounded-lg shadow-sm border border-slate-100 dark:border-slate-800 transition-colors">
+                                                <span className="text-sm text-blue-600 dark:text-blue-400 font-bold">2023</span>
+                                                <h4 className="text-lg font-bold text-slate-900 dark:text-white mt-1">ALX Software Engineering</h4>
+                                                <p className="text-slate-600 dark:text-slate-400">ALX Africa</p>
+                                            </div>
+                                            <div className="bg-white dark:bg-slate-900 p-6 rounded-lg shadow-sm border border-slate-100 dark:border-slate-800 transition-colors">
+                                                <span className="text-sm text-blue-600 dark:text-blue-400 font-bold">2019 - 2020</span>
+                                                <h4 className="text-lg font-bold text-slate-900 dark:text-white mt-1">Professional Bachelor's Degree</h4>
+                                                <p className="text-slate-600 dark:text-slate-400">Computer Science | ISTA Roches noires</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {/* Skills */}
+                                    <div>
+                                        <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-8 flex items-center">
+                                            <Icon name="terminal" className="mr-3 text-blue-600 dark:text-blue-400"/> Areas of Expertise
+                                        </h3>
+                                        <div className="bg-white dark:bg-slate-900 p-8 rounded-lg shadow-sm border border-slate-100 dark:border-slate-800 transition-colors">
+                                            <div className="space-y-6">
+                                                
+                                                <div>
+                                                    <div className="flex justify-between mb-1">
+                                                        <span className="text-base font-medium text-slate-700 dark:text-slate-300">Incident Tracking (Jira)</span>
+                                                        <span className="text-sm font-medium text-blue-600 dark:text-blue-400">Expert</span>
+                                                    </div>
+                                                    <div className="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-2.5">
+                                                        <div className="bg-blue-600 dark:bg-blue-500 h-2.5 rounded-full" style={{ width: '95%' }}></div>
+                                                    </div>
+                                                </div>
+
+                                                <div>
+                                                    <div className="flex justify-between mb-1">
+                                                        <span className="text-base font-medium text-slate-700 dark:text-slate-300">Systems Integration</span>
+                                                        <span className="text-sm font-medium text-blue-600 dark:text-blue-400">Advanced</span>
+                                                    </div>
+                                                    <div className="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-2.5">
+                                                        <div className="bg-blue-600 dark:bg-blue-500 h-2.5 rounded-full" style={{ width: '90%' }}></div>
+                                                    </div>
+                                                </div>
+
+                                                <div>
+                                                    <div className="flex justify-between mb-1">
+                                                        <span className="text-base font-medium text-slate-700 dark:text-slate-300">IT Security (GPO, Antivirus)</span>
+                                                        <span className="text-sm font-medium text-blue-600 dark:text-blue-400">Advanced</span>
+                                                    </div>
+                                                    <div className="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-2.5">
+                                                        <div className="bg-blue-600 dark:bg-blue-500 h-2.5 rounded-full" style={{ width: '85%' }}></div>
+                                                    </div>
+                                                </div>
+
+                                                <div>
+                                                    <div className="flex justify-between mb-1">
+                                                        <span className="text-base font-medium text-slate-700 dark:text-slate-300">Technical Support (L1/L2)</span>
+                                                        <span className="text-sm font-medium text-blue-600 dark:text-blue-400">Expert</span>
+                                                    </div>
+                                                    <div className="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-2.5">
+                                                        <div className="bg-blue-600 dark:bg-blue-500 h-2.5 rounded-full" style={{ width: '95%' }}></div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                            <div className="mt-8 pt-6 border-t border-slate-100 dark:border-slate-800">
+                                                <h4 className="text-sm font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">Languages</h4>
+                                                <div className="flex gap-4 flex-wrap">
+                                                    <span className="px-3 py-1 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-full text-sm">Arabic (Native)</span>
+                                                    <span className="px-3 py-1 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-full text-sm">French (Professional)</span>
+                                                    <span className="px-3 py-1 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-full text-sm">English (Professional)</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        {/* Contact Section */}
+                        <section id="contact" className="py-20 bg-white dark:bg-slate-900 transition-colors duration-300">
+                            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                                <div className="bg-blue-600 dark:bg-blue-800 rounded-2xl shadow-xl overflow-hidden">
+                                    <div className="lg:grid lg:grid-cols-2">
+                                        <div className="p-10 lg:p-16 text-white">
+                                            <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl">
+                                                Let's connect
+                                            </h2>
+                                            <p className="mt-4 text-lg text-blue-100 dark:text-blue-200">
+                                                I'm currently available for new opportunities. Whether you have a question about my experience or want to discuss a potential role, my inbox is always open.
+                                            </p>
+                                            
+                                            <div className="mt-8 space-y-6">
+                                                <div className="flex items-center">
+                                                    <div className="flex-shrink-0 bg-blue-500 dark:bg-blue-700 p-3 rounded-lg">
+                                                        <Icon name="phone" className="h-6 w-6 text-white" />
+                                                    </div>
+                                                    <div className="ml-4 text-lg text-blue-50">+212 636 464 682</div>
+                                                </div>
+                                                <div className="flex items-center">
+                                                    <div className="flex-shrink-0 bg-blue-500 dark:bg-blue-700 p-3 rounded-lg">
+                                                        <Icon name="mail" className="h-6 w-6 text-white" />
+                                                    </div>
+                                                    <div className="ml-4 text-lg text-blue-50">anas99910@gmail.com</div>
+                                                </div>
+                                                <div className="flex items-center">
+                                                    <div className="flex-shrink-0 bg-blue-500 dark:bg-blue-700 p-3 rounded-lg">
+                                                        <Icon name="map-pin" className="h-6 w-6 text-white" />
+                                                    </div>
+                                                    <div className="ml-4 text-lg text-blue-50">Casablanca, Morocco</div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div className="bg-slate-50 dark:bg-slate-900 p-10 lg:p-16">
+                                            <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
+                                                <div>
+                                                    <label htmlFor="name" className="block text-sm font-medium text-slate-700 dark:text-slate-300">Name</label>
+                                                    <input type="text" name="name" id="name" className="mt-1 block w-full px-4 py-3 rounded-md border-slate-300 dark:border-slate-600 dark:bg-slate-800 dark:text-white shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm border" placeholder="Your name" />
+                                                </div>
+                                                <div>
+                                                    <label htmlFor="email" className="block text-sm font-medium text-slate-700 dark:text-slate-300">Email</label>
+                                                    <input type="email" name="email" id="email" className="mt-1 block w-full px-4 py-3 rounded-md border-slate-300 dark:border-slate-600 dark:bg-slate-800 dark:text-white shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm border" placeholder="you@example.com" />
+                                                </div>
+                                                <div>
+                                                    <label htmlFor="message" className="block text-sm font-medium text-slate-700 dark:text-slate-300">Message</label>
+                                                    <textarea id="message" name="message" rows="4" className="mt-1 block w-full px-4 py-3 rounded-md border-slate-300 dark:border-slate-600 dark:bg-slate-800 dark:text-white shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm border" placeholder="How can I help you?"></textarea>
+                                                </div>
+                                                <button type="submit" className="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors">
+                                                    Send Message
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        {/* Footer */}
+                        <footer className="bg-slate-900 dark:bg-black text-slate-400 py-8 transition-colors duration-300">
+                            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center">
+                                <div className="mb-4 md:mb-0">
+                                    <p>&copy; {new Date().getFullYear()} Anas Ben Chikhe. All rights reserved.</p>
+                                </div>
+                                <div className="flex space-x-6">
+                                    <a href="https://www.linkedin.com/in/anas-ben-chikhe-057968131/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
+                                        <Icon name="linkedin" size={20} />
+                                    </a>
+                                    <a href="#" className="hover:text-white transition-colors">
+                                        <Icon name="github" size={20} />
+                                    </a>
+                                    <a href="mailto:anas99910@gmail.com" className="hover:text-white transition-colors">
+                                        <Icon name="mail" size={20} />
+                                    </a>
+                                </div>
+                            </div>
+                        </footer>
                     </div>
-                  </div>
                 </div>
-              </div>
+            );
+        };
 
-              {/* Project 2: Expenso */}
-              <div className="lg:grid lg:grid-cols-2 lg:gap-16 items-center">
-                 {/* Mockup Visualization (Left side for visual interest) */}
-                <div className="mt-10 lg:mt-0 order-2 lg:order-1">
-                  <div className="bg-slate-900 rounded-lg shadow-2xl p-2 border border-slate-800 transform -rotate-1 hover:rotate-0 transition-transform duration-500">
-                    {/* Fake Browser Header */}
-                    <div className="bg-slate-800 h-8 rounded-t-md flex items-center px-4 space-x-2 mb-0">
-                        <div className="w-3 h-3 rounded-full bg-red-500"></div>
-                        <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
-                        <div className="w-3 h-3 rounded-full bg-green-500"></div>
-                        <div className="ml-4 bg-slate-900 w-2/3 h-4 rounded-full"></div>
-                    </div>
-                    {/* Fake App Content - Dark Mode */}
-                    <div className="bg-[#121212] h-64 md:h-80 rounded-b-md overflow-hidden relative p-4 flex flex-col">
-                        <div className="flex justify-between items-center mb-6">
-                           <div className="w-32 h-6 bg-slate-800 rounded"></div>
-                           <div className="w-8 h-8 bg-green-500 rounded-full"></div>
-                        </div>
-                        <div className="grid grid-cols-2 gap-4 mb-6">
-                           <div className="bg-[#1e1e1e] p-4 rounded-xl border border-slate-800 h-24">
-                              <div className="w-16 h-3 bg-slate-600 rounded mb-2"></div>
-                              <div className="w-24 h-6 bg-white rounded"></div>
-                           </div>
-                           <div className="bg-[#1e1e1e] p-4 rounded-xl border border-slate-800 h-24">
-                              <div className="w-16 h-3 bg-slate-600 rounded mb-2"></div>
-                              <div className="w-full h-2 bg-slate-700 rounded-full mt-2">
-                                 <div className="w-3/4 h-full bg-green-500 rounded-full"></div>
-                              </div>
-                           </div>
-                        </div>
-                        <div className="flex-1 bg-[#1e1e1e] rounded-xl border border-slate-800 p-4 flex items-end justify-around gap-2">
-                           <div className="w-8 h-[40%] bg-green-500 rounded-t"></div>
-                           <div className="w-8 h-[70%] bg-yellow-500 rounded-t"></div>
-                           <div className="w-8 h-[50%] bg-purple-500 rounded-t"></div>
-                           <div className="w-8 h-[85%] bg-blue-500 rounded-t"></div>
-                           <div className="w-8 h-[30%] bg-red-500 rounded-t"></div>
-                        </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Project Info */}
-                <div className="order-1 lg:order-2">
-                  <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">Expenso - Sleek Expense Tracker</h3>
-                  <p className="text-slate-600 dark:text-slate-400 mb-6">
-                    A comprehensive personal finance application providing real-time income and expense tracking with advanced data visualization and budget management capabilities.
-                  </p>
-                  
-                  <div className="flex flex-wrap gap-2 mb-8">
-                    <span className="px-3 py-1 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 rounded-md text-sm font-medium flex items-center gap-1"><Terminal size={14}/> JavaScript</span>
-                    <span className="px-3 py-1 bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-300 rounded-md text-sm font-medium flex items-center gap-1"><Database size={14}/> Firebase</span>
-                    <span className="px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-md text-sm font-medium flex items-center gap-1"><Briefcase size={14}/> Tailwind CSS</span>
-                  </div>
-
-                  <div className="space-y-4">
-                    <div className="flex items-start">
-                      <div className="flex-shrink-0">
-                        <div className="flex items-center justify-center h-8 w-8 rounded-md bg-green-100 dark:bg-green-900 text-green-600 dark:text-green-300">
-                          <PieChart size={18} />
-                        </div>
-                      </div>
-                      <div className="ml-4">
-                        <h5 className="text-lg font-medium text-slate-900 dark:text-white">Financial Insights</h5>
-                        <p className="mt-1 text-slate-500 dark:text-slate-400 text-sm">Interactive bar and pie charts allow users to visualize spending habits and track monthly savings.</p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-start">
-                      <div className="flex-shrink-0">
-                        <div className="flex items-center justify-center h-8 w-8 rounded-md bg-green-100 dark:bg-green-900 text-green-600 dark:text-green-300">
-                          <Wallet size={18} />
-                        </div>
-                      </div>
-                      <div className="ml-4">
-                        <h5 className="text-lg font-medium text-slate-900 dark:text-white">Smart Budgeting</h5>
-                        <p className="mt-1 text-slate-500 dark:text-slate-400 text-sm">Set monthly budgets with visual progress indicators and recurring expense automation.</p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-start">
-                      <div className="flex-shrink-0">
-                        <div className="flex items-center justify-center h-8 w-8 rounded-md bg-green-100 dark:bg-green-900 text-green-600 dark:text-green-300">
-                          <TrendingUp size={18} />
-                        </div>
-                      </div>
-                      <div className="ml-4">
-                        <h5 className="text-lg font-medium text-slate-900 dark:text-white">Data Management</h5>
-                        <p className="mt-1 text-slate-500 dark:text-slate-400 text-sm">Includes robust export options (CSV/JSON) and secure, password-gated user authentication.</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-            </div>
-          </div>
-        </section>
-
-        {/* Education & Skills Grid */}
-        <section id="skills" className="py-20 bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-              
-              {/* Education */}
-              <div>
-                <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-8 flex items-center">
-                  <GraduationCap className="mr-3 text-blue-600 dark:text-blue-400"/> Education
-                </h3>
-                <div className="space-y-6">
-                  <div className="bg-white dark:bg-slate-900 p-6 rounded-lg shadow-sm border border-slate-100 dark:border-slate-800 transition-colors">
-                    <span className="text-sm text-blue-600 dark:text-blue-400 font-bold">2023</span>
-                    <h4 className="text-lg font-bold text-slate-900 dark:text-white mt-1">ALX Software Engineering</h4>
-                    <p className="text-slate-600 dark:text-slate-400">ALX Africa</p>
-                  </div>
-                  <div className="bg-white dark:bg-slate-900 p-6 rounded-lg shadow-sm border border-slate-100 dark:border-slate-800 transition-colors">
-                    <span className="text-sm text-blue-600 dark:text-blue-400 font-bold">2019 - 2020</span>
-                    <h4 className="text-lg font-bold text-slate-900 dark:text-white mt-1">Professional Bachelor's Degree</h4>
-                    <p className="text-slate-600 dark:text-slate-400">Computer Science | ISTA Roches noires</p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Skills */}
-              <div>
-                <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-8 flex items-center">
-                  <Terminal className="mr-3 text-blue-600 dark:text-blue-400"/> Areas of Expertise
-                </h3>
-                <div className="bg-white dark:bg-slate-900 p-8 rounded-lg shadow-sm border border-slate-100 dark:border-slate-800 transition-colors">
-                  <div className="space-y-6">
-                    
-                    <div>
-                      <div className="flex justify-between mb-1">
-                        <span className="text-base font-medium text-slate-700 dark:text-slate-300">Incident Tracking (Jira)</span>
-                        <span className="text-sm font-medium text-blue-600 dark:text-blue-400">Expert</span>
-                      </div>
-                      <div className="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-2.5">
-                        <div className="bg-blue-600 dark:bg-blue-500 h-2.5 rounded-full" style={{ width: '95%' }}></div>
-                      </div>
-                    </div>
-
-                    <div>
-                      <div className="flex justify-between mb-1">
-                        <span className="text-base font-medium text-slate-700 dark:text-slate-300">Systems Integration</span>
-                        <span className="text-sm font-medium text-blue-600 dark:text-blue-400">Advanced</span>
-                      </div>
-                      <div className="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-2.5">
-                        <div className="bg-blue-600 dark:bg-blue-500 h-2.5 rounded-full" style={{ width: '90%' }}></div>
-                      </div>
-                    </div>
-
-                    <div>
-                      <div className="flex justify-between mb-1">
-                        <span className="text-base font-medium text-slate-700 dark:text-slate-300">IT Security (GPO, Antivirus)</span>
-                        <span className="text-sm font-medium text-blue-600 dark:text-blue-400">Advanced</span>
-                      </div>
-                      <div className="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-2.5">
-                        <div className="bg-blue-600 dark:bg-blue-500 h-2.5 rounded-full" style={{ width: '85%' }}></div>
-                      </div>
-                    </div>
-
-                    <div>
-                      <div className="flex justify-between mb-1">
-                        <span className="text-base font-medium text-slate-700 dark:text-slate-300">Technical Support (L1/L2)</span>
-                        <span className="text-sm font-medium text-blue-600 dark:text-blue-400">Expert</span>
-                      </div>
-                      <div className="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-2.5">
-                        <div className="bg-blue-600 dark:bg-blue-500 h-2.5 rounded-full" style={{ width: '95%' }}></div>
-                      </div>
-                    </div>
-
-                  </div>
-
-                  <div className="mt-8 pt-6 border-t border-slate-100 dark:border-slate-800">
-                      <h4 className="text-sm font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">Languages</h4>
-                      <div className="flex gap-4 flex-wrap">
-                        <span className="px-3 py-1 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-full text-sm">Arabic (Native)</span>
-                        <span className="px-3 py-1 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-full text-sm">French (Professional)</span>
-                        <span className="px-3 py-1 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-full text-sm">English (Professional)</span>
-                      </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Contact Section */}
-        <section id="contact" className="py-20 bg-white dark:bg-slate-900 transition-colors duration-300">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="bg-blue-600 dark:bg-blue-800 rounded-2xl shadow-xl overflow-hidden">
-              <div className="lg:grid lg:grid-cols-2">
-                <div className="p-10 lg:p-16 text-white">
-                  <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl">
-                    Let's connect
-                  </h2>
-                  <p className="mt-4 text-lg text-blue-100 dark:text-blue-200">
-                    I'm currently available for new opportunities. Whether you have a question about my experience or want to discuss a potential role, my inbox is always open.
-                  </p>
-                  
-                  <div className="mt-8 space-y-6">
-                    <div className="flex items-center">
-                      <div className="flex-shrink-0 bg-blue-500 dark:bg-blue-700 p-3 rounded-lg">
-                        <Phone className="h-6 w-6 text-white" />
-                      </div>
-                      <div className="ml-4 text-lg text-blue-50">+212 636 464 682</div>
-                    </div>
-                    <div className="flex items-center">
-                      <div className="flex-shrink-0 bg-blue-500 dark:bg-blue-700 p-3 rounded-lg">
-                        <Mail className="h-6 w-6 text-white" />
-                      </div>
-                      <div className="ml-4 text-lg text-blue-50">anas99910@gmail.com</div>
-                    </div>
-                    <div className="flex items-center">
-                      <div className="flex-shrink-0 bg-blue-500 dark:bg-blue-700 p-3 rounded-lg">
-                        <MapPin className="h-6 w-6 text-white" />
-                      </div>
-                      <div className="ml-4 text-lg text-blue-50">Casablanca, Morocco</div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="bg-slate-50 dark:bg-slate-900 p-10 lg:p-16">
-                  <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
-                    <div>
-                      <label htmlFor="name" className="block text-sm font-medium text-slate-700 dark:text-slate-300">Name</label>
-                      <input type="text" name="name" id="name" className="mt-1 block w-full px-4 py-3 rounded-md border-slate-300 dark:border-slate-600 dark:bg-slate-800 dark:text-white shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm border" placeholder="Your name" />
-                    </div>
-                    <div>
-                      <label htmlFor="email" className="block text-sm font-medium text-slate-700 dark:text-slate-300">Email</label>
-                      <input type="email" name="email" id="email" className="mt-1 block w-full px-4 py-3 rounded-md border-slate-300 dark:border-slate-600 dark:bg-slate-800 dark:text-white shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm border" placeholder="you@example.com" />
-                    </div>
-                    <div>
-                      <label htmlFor="message" className="block text-sm font-medium text-slate-700 dark:text-slate-300">Message</label>
-                      <textarea id="message" name="message" rows="4" className="mt-1 block w-full px-4 py-3 rounded-md border-slate-300 dark:border-slate-600 dark:bg-slate-800 dark:text-white shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm border" placeholder="How can I help you?"></textarea>
-                    </div>
-                    <button type="submit" className="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors">
-                      Send Message
-                    </button>
-                  </form>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Footer */}
-        <footer className="bg-slate-900 dark:bg-black text-slate-400 py-8 transition-colors duration-300">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center">
-            <div className="mb-4 md:mb-0">
-              <p>&copy; {new Date().getFullYear()} Anas Ben Chikhe. All rights reserved.</p>
-            </div>
-            <div className="flex space-x-6">
-              <a href="https://www.linkedin.com/in/anas-ben-chikhe-057968131/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
-                <Linkedin size={20} />
-              </a>
-              <a href="#" className="hover:text-white transition-colors">
-                <Github size={20} />
-              </a>
-              <a href="mailto:anas99910@gmail.com" className="hover:text-white transition-colors">
-                <Mail size={20} />
-              </a>
-            </div>
-          </div>
-        </footer>
-      </div>
-    </div>
-  );
-};
-
-export default Portfolio;
+        // Render the app
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<Portfolio />);
+    </script>
+</body>
+</html>
