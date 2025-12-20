@@ -19,7 +19,7 @@ const Experience = () => {
                             <span className="text-sm font-medium text-blue-600 dark:text-blue-300 bg-blue-100 dark:bg-blue-900/30 px-3 py-1 rounded-full w-fit mt-2 sm:mt-0">2020 - Present</span>
                         </div>
                         <h4 className="text-lg font-medium text-slate-600 dark:text-slate-400 mb-4">SITA, Mohammed V International Airport | Casablanca</h4>
-                        <div className="bg-white dark:bg-slate-900 p-6 rounded-lg shadow-sm border border-slate-200 dark:border-slate-800 transition-colors">
+                        <div className="bg-white/90 dark:bg-slate-900/90 backdrop-blur-sm p-6 rounded-lg shadow-sm border border-slate-200 dark:border-slate-800 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/10 hover:border-blue-500/30">
                             <ul className="space-y-3 text-slate-600 dark:text-slate-300 list-disc list-inside">
                                 <li>Led software deployments, cutting rollout time by <span className="font-bold text-slate-800 dark:text-slate-200">40%</span> and increasing user adoption by <span className="font-bold text-slate-800 dark:text-slate-200">50%</span>.</li>
                                 <li>Delivered Level 1 and 2 technical support with high efficiency and satisfaction.</li>
@@ -36,7 +36,7 @@ const Experience = () => {
                             <span className="text-sm font-medium text-slate-600 dark:text-slate-400 bg-slate-200 dark:bg-slate-800 px-3 py-1 rounded-full w-fit mt-2 sm:mt-0">2019 - 2020</span>
                         </div>
                         <h4 className="text-lg font-medium text-slate-600 dark:text-slate-400 mb-4">SITA, Mohammed V International Airport | Casablanca</h4>
-                        <div className="bg-white dark:bg-slate-900 p-6 rounded-lg shadow-sm border border-slate-200 dark:border-slate-800 transition-colors">
+                        <div className="bg-white/90 dark:bg-slate-900/90 backdrop-blur-sm p-6 rounded-lg shadow-sm border border-slate-200 dark:border-slate-800 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/10 hover:border-blue-500/30">
                             <ul className="space-y-3 text-slate-600 dark:text-slate-300 list-disc list-inside">
                                 <li>Managed incident resolution using ServiceNow, reducing average resolution time by <span className="font-bold text-slate-800 dark:text-slate-200">30%</span>.</li>
                                 <li>Provided first-line support for hardware, software, and network connectivity issues.</li>

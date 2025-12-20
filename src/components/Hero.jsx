@@ -15,8 +15,8 @@ const Hero = () => {
                             Available for IT Support & Field Ops Roles
                         </div>
                         <h1 className="text-4xl tracking-tight font-extrabold sm:text-5xl md:text-6xl lg:text-5xl xl:text-6xl">
-                            <span className="block">Hi, I'm Anas Ben Chikhe</span>
-                            <span className="block text-blue-400 mt-2">Technical Field Support Engineer</span>
+                            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-500 to-teal-400 animate-gradient-x pb-2">Hi, I'm Anas Ben Chikhe</span>
+                            <span className="block text-slate-200 dark:text-blue-400 mt-2">Technical Field Support Engineer</span>
                         </h1>
                         <p className="mt-4 text-lg text-slate-300 sm:mt-6">
                             Leveraging expertise in incident management, system integration, and user satisfaction to enhance operational efficiency in dynamic environments.

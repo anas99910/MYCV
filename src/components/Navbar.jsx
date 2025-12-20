@@ -18,8 +18,8 @@ const Navbar = ({ isDarkMode, toggleTheme }) => {
         <nav className="sticky top-0 z-50 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 shadow-sm transition-colors duration-300">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between h-16 items-center">
-                    <div className="flex-shrink-0 flex items-center">
-                        <span className="text-2xl font-bold text-blue-700 dark:text-blue-500 tracking-tight">ABC<span className="text-slate-800 dark:text-slate-200">.tech</span></span>
+                    <div className="flex-shrink-0 flex items-center cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+                        <h1 className="text-2xl font-bold text-blue-700 dark:text-blue-500 tracking-tight">Anas<span className="text-slate-800 dark:text-slate-200">.systems</span></h1>
                     </div>
 
                     {/* Desktop Nav */}

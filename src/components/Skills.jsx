@@ -11,12 +11,24 @@ const Skills = () => {
                             <GraduationCap className="mr-3 text-blue-600 dark:text-blue-400" /> Education
                         </h3>
                         <div className="space-y-6">
-                            <div className="bg-white dark:bg-slate-900 p-6 rounded-lg shadow-sm border border-slate-100 dark:border-slate-800 transition-colors">
+                            <div className="bg-white/90 dark:bg-slate-900/90 backdrop-blur-sm p-6 rounded-lg shadow-sm border border-slate-100 dark:border-slate-800 transition-all duration-300 hover:shadow-md hover:border-blue-500/30 group">
                                 <span className="text-sm text-blue-600 dark:text-blue-400 font-bold">2023</span>
                                 <h4 className="text-lg font-bold text-slate-900 dark:text-white mt-1">ALX Software Engineering</h4>
-                                <p className="text-slate-600 dark:text-slate-400">ALX Africa</p>
+                                <p className="text-slate-600 dark:text-slate-400 mb-4">ALX Africa</p>
+                                <div className="relative overflow-hidden rounded-md border border-slate-200 dark:border-slate-700 group-hover:border-blue-500/50 transition-colors">
+                                    <img
+                                        src={`${import.meta.env.BASE_URL}alx-cert.png`}
+                                        alt="ALX Certificate"
+                                        className="w-full h-auto transform group-hover:scale-105 transition-transform duration-500"
+                                    />
+                                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
+                                        <a href={`${import.meta.env.BASE_URL}alx-cert.png`} target="_blank" className="bg-white/90 text-slate-900 text-xs font-bold px-3 py-1 rounded-full shadow-lg transform translate-y-2 group-hover:translate-y-0 transition-all duration-300">
+                                            View Full Size
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
-                            <div className="bg-white dark:bg-slate-900 p-6 rounded-lg shadow-sm border border-slate-100 dark:border-slate-800 transition-colors">
+                            <div className="bg-white/90 dark:bg-slate-900/90 backdrop-blur-sm p-6 rounded-lg shadow-sm border border-slate-100 dark:border-slate-800 transition-all duration-300 hover:shadow-md hover:border-blue-500/30">
                                 <span className="text-sm text-blue-600 dark:text-blue-400 font-bold">2019 - 2020</span>
                                 <h4 className="text-lg font-bold text-slate-900 dark:text-white mt-1">Professional Bachelor's Degree</h4>
                                 <p className="text-slate-600 dark:text-slate-400">Computer Science | ISTA Roches noires</p>
@@ -27,7 +39,7 @@ const Skills = () => {
                         <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-8 flex items-center">
                             <Terminal className="mr-3 text-blue-600 dark:text-blue-400" /> Areas of Expertise
                         </h3>
-                        <div className="bg-white dark:bg-slate-900 p-8 rounded-lg shadow-sm border border-slate-100 dark:border-slate-800 transition-colors">
+                        <div className="bg-white/90 dark:bg-slate-900/90 backdrop-blur-sm p-8 rounded-lg shadow-sm border border-slate-100 dark:border-slate-800 transition-all duration-300 hover:shadow-md hover:border-blue-500/30">
                             <div className="space-y-6">
                                 <div>
                                     <div className="flex justify-between mb-1">

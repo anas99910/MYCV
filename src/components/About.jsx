@@ -17,7 +17,7 @@ const About = () => {
 
                 <div className="mt-10">
                     <dl className="space-y-10 md:space-y-0 md:grid md:grid-cols-3 md:gap-x-8 md:gap-y-10">
-                        <div className="relative bg-slate-50 dark:bg-slate-800 p-6 rounded-xl border border-slate-100 dark:border-slate-700 shadow-sm hover:shadow-md transition-all">
+                        <div className="relative bg-slate-50/90 dark:bg-slate-800/90 backdrop-blur-sm p-6 rounded-xl border border-slate-100 dark:border-slate-700 shadow-sm hover:shadow-lg hover:shadow-blue-500/20 hover:border-blue-500/40 transition-all duration-300 group">
                             <dt>
                                 <div className="absolute flex items-center justify-center h-12 w-12 rounded-md bg-blue-500 text-white">
                                     <Shield className="h-6 w-6" />
@@ -29,7 +29,7 @@ const About = () => {
                             </dd>
                         </div>
 
-                        <div className="relative bg-slate-50 dark:bg-slate-800 p-6 rounded-xl border border-slate-100 dark:border-slate-700 shadow-sm hover:shadow-md transition-all">
+                        <div className="relative bg-slate-50/90 dark:bg-slate-800/90 backdrop-blur-sm p-6 rounded-xl border border-slate-100 dark:border-slate-700 shadow-sm hover:shadow-lg hover:shadow-blue-500/20 hover:border-blue-500/40 transition-all duration-300 group">
                             <dt>
                                 <div className="absolute flex items-center justify-center h-12 w-12 rounded-md bg-blue-500 text-white">
                                     <Server className="h-6 w-6" />
@@ -41,7 +41,7 @@ const About = () => {
                             </dd>
                         </div>
 
-                        <div className="relative bg-slate-50 dark:bg-slate-800 p-6 rounded-xl border border-slate-100 dark:border-slate-700 shadow-sm hover:shadow-md transition-all">
+                        <div className="relative bg-slate-50/90 dark:bg-slate-800/90 backdrop-blur-sm p-6 rounded-xl border border-slate-100 dark:border-slate-700 shadow-sm hover:shadow-lg hover:shadow-blue-500/20 hover:border-blue-500/40 transition-all duration-300 group">
                             <dt>
                                 <div className="absolute flex items-center justify-center h-12 w-12 rounded-md bg-blue-500 text-white">
                                     <Users className="h-6 w-6" />

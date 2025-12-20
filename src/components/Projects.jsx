@@ -64,7 +64,7 @@ const Projects = () => {
                             </div>
                         </div>
                         <div className="mt-10 lg:mt-0">
-                            <div className="rounded-lg shadow-2xl p-1 bg-gradient-to-br from-zinc-700 via-zinc-900 to-black border border-zinc-800 transform rotate-1 hover:rotate-0 transition-transform duration-500">
+                            <div className="rounded-lg shadow-2xl p-1 bg-gradient-to-br from-zinc-700 via-zinc-900 to-black border border-zinc-800 transform rotate-1 hover:rotate-0 hover:shadow-blue-500/20 transition-all duration-500">
                                 <div className="bg-zinc-900 h-8 rounded-t-md flex items-center px-4 space-x-2 border-b border-zinc-800">
                                     <div className="w-3 h-3 rounded-full bg-red-500"></div>
                                     <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
@@ -104,7 +104,7 @@ const Projects = () => {
                     </div>
                     <div className="lg:grid lg:grid-cols-2 lg:gap-16 items-center">
                         <div className="mt-10 lg:mt-0 order-2 lg:order-1">
-                            <div className="bg-slate-900 rounded-lg shadow-2xl p-2 border border-slate-800 transform -rotate-1 hover:rotate-0 transition-transform duration-500">
+                            <div className="bg-slate-900 rounded-lg shadow-2xl p-2 border border-slate-800 transform -rotate-1 hover:rotate-0 hover:shadow-blue-500/20 transition-all duration-500">
                                 <div className="bg-slate-800 h-8 rounded-t-md flex items-center px-4 space-x-2 mb-0">
                                     <div className="w-3 h-3 rounded-full bg-red-500"></div>
                                     <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
