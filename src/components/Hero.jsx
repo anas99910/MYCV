@@ -1,4 +1,5 @@
 import Section from './ui/Section';
+import Terminal from './ui/Terminal';
 
 const Hero = () => {
     return (
@@ -31,20 +32,7 @@ const Hero = () => {
                     </div>
                     <div className="mt-12 relative sm:max-w-lg sm:mx-auto lg:mt-0 lg:max-w-none lg:mx-0 lg:col-span-5 lg:flex lg:items-center">
                         <div className="relative mx-auto w-full rounded-lg shadow-lg lg:max-w-md">
-                            <div className="relative block w-full bg-gradient-to-br from-blue-600 to-slate-800 rounded-lg overflow-hidden p-8 border border-slate-600">
-                                <div className="flex items-center space-x-2 mb-6">
-                                    <div className="w-3 h-3 rounded-full bg-red-500"></div>
-                                    <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
-                                    <div className="w-3 h-3 rounded-full bg-green-500"></div>
-                                </div>
-                                <div className="space-y-4 font-mono text-sm text-blue-100">
-                                    <p><span className="text-green-400">$</span> user.name = "Anas Ben Chikhe"</p>
-                                    <p><span className="text-green-400">$</span> user.role = "Support Specialist"</p>
-                                    <p><span className="text-green-400">$</span> user.location = "Casablanca, MA"</p>
-                                    <p><span className="text-green-400">$</span> skills.load([ "ServiceNow", "ITIL", "Network" ])</p>
-                                    <p className="animate-pulse text-blue-400">_</p>
-                                </div>
-                            </div>
+                            <Terminal />
                         </div>
                     </div>
                 </div>
