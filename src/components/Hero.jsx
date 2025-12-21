@@ -1,5 +1,7 @@
+import React from 'react';
 import Section from './ui/Section';
 import Terminal from './ui/Terminal';
+import { ArrowDown } from 'lucide-react';
 
 const Hero = () => {
     return (
@@ -38,6 +40,12 @@ const Hero = () => {
                         </div>
                     </div>
                     <div className="mt-16 lg:mt-0 lg:col-span-5 relative">
+                        {/* Try Me CTA */}
+                        <div className="absolute -top-12 left-1/2 transform -translate-x-1/2 flex flex-col items-center animate-bounce z-20 pointer-events-none select-none">
+                            <span className="text-green-400 font-mono font-bold text-sm tracking-wider mb-1 drop-shadow-lg">TRY ME 🚀</span>
+                            <ArrowDown className="text-green-400 w-6 h-6 drop-shadow-lg" />
+                        </div>
+
                         {/* Glow effect behind terminal */}
                         <div className="absolute -inset-4 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl opacity-20 blur-2xl animate-pulse"></div>
                         <div className="relative rounded-xl shadow-2xl lg:max-w-md mx-auto transform hover:scale-[1.02] transition-transform duration-500">
