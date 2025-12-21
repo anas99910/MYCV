@@ -169,6 +169,18 @@ const Terminal = () => {
         }
     }, [output]);
 
+    // Handle ESC key to minimize
+    useEffect(() => {
+        const handleEsc = (e) => {
+            if (e.key === 'Escape' && isMaximized) {
+                setIsMaximized(false);
+            }
+        };
+
+        window.addEventListener('keydown', handleEsc);
+        return () => window.removeEventListener('keydown', handleEsc);
+    }, [isMaximized]);
+
     // Render content based on maximized state
     const terminalNodes = (
         <div className={`backdrop-blur-xl bg-slate-900/80 border border-slate-700/50 shadow-2xl rounded-lg overflow-hidden font-mono text-sm transition-all duration-300 ${isMaximized ? 'fixed inset-4 z-[100]' : 'w-full h-[350px]'}`}>
@@ -246,7 +258,6 @@ const Terminal = () => {
                             onKeyDown={handleKeyDown}
                             className="bg-transparent border-none outline-none text-slate-100 w-full font-mono placeholder-slate-600 focus:ring-0 p-0"
                             placeholder="Type a command..."
-                            autoFocus
                         />
                     </div>
                 )}
