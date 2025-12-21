@@ -2,7 +2,7 @@ import React from 'react';
 import Section from './ui/Section';
 import Terminal from './ui/Terminal';
 import MatrixRain from './ui/MatrixRain';
-import TechScene from './ui/TechScene';
+
 import { ArrowDown } from 'lucide-react';
 
 const Hero = ({ isDarkMode }) => {
@@ -43,9 +43,7 @@ const Hero = ({ isDarkMode }) => {
                     </div>
                     <div className="mt-16 lg:mt-0 lg:col-span-5 relative">
                         {/* 3D Scene */}
-                        <div className="absolute -top-40 left-1/2 transform -translate-x-1/2 w-full h-[500px] z-0 opacity-80 pointer-events-auto">
-                            <TechScene />
-                        </div>
+
 
                         {/* Terminal */}
                         <div className="relative z-10">
