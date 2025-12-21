@@ -119,7 +119,7 @@ const SnakeGame = ({ onClose }) => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-md"
+            className="fixed inset-0 z-[200] flex items-center justify-center bg-black/90 backdrop-blur-md"
         >
             <div className="bg-slate-900 border-2 border-green-500 rounded-lg p-6 shadow-2xl max-w-lg w-full relative">
                 <button

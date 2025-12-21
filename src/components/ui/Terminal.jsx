@@ -235,13 +235,13 @@ const Terminal = () => {
                 onClick={() => !isTyping && inputRef.current?.focus()}
             >
                 {output.map((line, i) => (
-                    <div key={i} className={`mb-1 font-mono ${line.type === 'command' ? 'text-slate-300' :
+                    <div key={i} className={`mb-1 font-mono ${line.type === 'command' ? 'text-green-300' :
                         line.type === 'error' ? 'text-red-400' :
                             line.type === 'success' ? 'text-green-400' :
-                                line.type === 'item' ? 'text-slate-300 pl-4' :
-                                    'text-blue-300'
+                                line.type === 'item' ? 'text-green-200 pl-4' :
+                                    'text-green-300'
                         }`}>
-                        {line.type === 'command' && <span className="text-blue-400 mr-2">$</span>}
+                        {line.type === 'command' && <span className="text-green-500 mr-2">$</span>}
                         {line.content}
                     </div>
                 ))}
@@ -249,21 +249,21 @@ const Terminal = () => {
                 {!isTyping && (
                     <div className="flex items-center mt-2 group">
                         <span className="text-green-500 mr-2">➜</span>
-                        <span className="text-blue-400 mr-2">~</span>
+                        <span className="text-green-400 mr-2">~</span>
                         <input
                             ref={inputRef}
                             type="text"
                             value={input}
                             onChange={(e) => setInput(e.target.value)}
                             onKeyDown={handleKeyDown}
-                            className="bg-transparent border-none outline-none text-slate-100 w-full font-mono placeholder-slate-600 focus:ring-0 p-0"
+                            className="bg-transparent border-none outline-none text-green-100 w-full font-mono placeholder-green-700 focus:ring-0 p-0"
                             placeholder="Type a command..."
                         />
                     </div>
                 )}
 
                 {isTyping && (
-                    <div className="mt-2 animate-pulse text-blue-400">▍</div>
+                    <div className="mt-2 animate-pulse text-green-400">▍</div>
                 )}
             </div>
         </div>
@@ -280,9 +280,7 @@ const Terminal = () => {
                 terminalNodes
             )}
 
-            <AnimatePresence>
-                {showSnake && createPortal(<SnakeGame onClose={() => setShowSnake(false)} />, document.body)}
-            </AnimatePresence>
+            {showSnake && createPortal(<SnakeGame onClose={() => setShowSnake(false)} />, document.body)}
         </>
     );
 };
