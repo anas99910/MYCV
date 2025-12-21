@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="#a5f3fc" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.5));">
+  <!-- Original path rotated/flipped to point to 0,0 (Top-Left) -->
+  <!-- Tip at 1,1 -->
+  <path d="M1 1L22 8L12 12L8 22L1 1Z" />
+  <path d="M1 1L12 12" />
+</svg>

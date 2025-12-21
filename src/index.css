@@ -5,6 +5,13 @@
 @layer base {
   body {
     @apply font-sans antialiased;
+    cursor: url('/paper-plane.svg') 0 0, auto;
+  }
+
+  a,
+  button,
+  [role="button"] {
+    cursor: url('/paper-plane.svg') 0 0, pointer;
   }
 
   html {

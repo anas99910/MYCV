@@ -1,16 +1,18 @@
 import React from 'react';
 import Section from './ui/Section';
 import Terminal from './ui/Terminal';
+import MatrixRain from './ui/MatrixRain';
+import TechScene from './ui/TechScene';
 import { ArrowDown } from 'lucide-react';
 
-const Hero = () => {
+const Hero = ({ isDarkMode }) => {
     return (
         <Section className="relative bg-slate-900 dark:bg-black text-white py-24 lg:py-32 overflow-hidden transition-colors duration-300">
             {/* Animated Background */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                <div className="absolute -top-1/2 -left-1/2 w-[1000px] h-[1000px] bg-blue-500/20 rounded-full blur-3xl opacity-30 animate-blob"></div>
-                <div className="absolute -bottom-1/2 -right-1/2 w-[1000px] h-[1000px] bg-purple-500/20 rounded-full blur-3xl opacity-30 animate-blob animation-delay-2000"></div>
-                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-teal-500/10 rounded-full blur-3xl opacity-30 animate-blob animation-delay-4000"></div>
+                {isDarkMode && <MatrixRain />}
+                <div className="absolute -top-1/2 -left-1/2 w-[1000px] h-[1000px] bg-blue-500/10 rounded-full blur-3xl opacity-20 animate-blob"></div>
+                <div className="absolute -bottom-1/2 -right-1/2 w-[1000px] h-[1000px] bg-purple-500/10 rounded-full blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
                 <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-[0.03]"></div>
             </div>
 
@@ -40,16 +42,22 @@ const Hero = () => {
                         </div>
                     </div>
                     <div className="mt-16 lg:mt-0 lg:col-span-5 relative">
-                        {/* Try Me CTA */}
-                        <div className="absolute -top-12 left-1/2 transform -translate-x-1/2 flex flex-col items-center animate-bounce z-20 pointer-events-none select-none">
-                            <span className="text-green-400 font-mono font-bold text-sm tracking-wider mb-1 drop-shadow-lg">TRY ME 🚀</span>
-                            <ArrowDown className="text-green-400 w-6 h-6 drop-shadow-lg" />
+                        {/* 3D Scene */}
+                        <div className="absolute -top-40 left-1/2 transform -translate-x-1/2 w-full h-[500px] z-0 opacity-80 pointer-events-auto">
+                            <TechScene />
                         </div>
 
-                        {/* Glow effect behind terminal */}
-                        <div className="absolute -inset-4 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl opacity-20 blur-2xl animate-pulse"></div>
-                        <div className="relative rounded-xl shadow-2xl lg:max-w-md mx-auto transform hover:scale-[1.02] transition-transform duration-500">
-                            <Terminal />
+                        {/* Terminal */}
+                        <div className="relative z-10">
+                            <div className="absolute -top-12 left-1/2 transform -translate-x-1/2 flex flex-col items-center animate-bounce z-20 pointer-events-none select-none">
+                                <span className="text-green-400 font-mono font-bold text-sm tracking-wider mb-1 drop-shadow-lg">TRY ME 🚀</span>
+                                <ArrowDown className="text-green-400 w-6 h-6 drop-shadow-lg" />
+                            </div>
+                            <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl p-[2px] shadow-2xl animate-pulse">
+                                <div className="bg-slate-900 rounded-xl overflow-hidden">
+                                    <Terminal />
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

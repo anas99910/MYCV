@@ -9,6 +9,7 @@ import Contact from './components/Contact';
 import Footer from './components/Footer';
 
 import ScrollProgress from './components/ui/ScrollProgress';
+import SystemStatus from './components/ui/SystemStatus';
 
 function App() {
   const [isDarkMode, setIsDarkMode] = useState(true);
@@ -26,8 +27,9 @@ function App() {
   return (
     <div className={`min-h-screen bg-slate-50 dark:bg-slate-950 font-sans text-slate-900 dark:text-slate-100 selection:bg-blue-200 dark:selection:bg-blue-900 transition-colors duration-300`}>
       <ScrollProgress />
+      <SystemStatus />
       <Navbar isDarkMode={isDarkMode} toggleTheme={toggleTheme} />
-      <Hero />
+      <Hero isDarkMode={isDarkMode} />
       <About />
       <Experience />
       <Projects />
