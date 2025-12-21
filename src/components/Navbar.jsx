@@ -15,11 +15,14 @@ const Navbar = ({ isDarkMode, toggleTheme }) => {
     ];
 
     return (
-        <nav className="sticky top-0 z-50 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 shadow-sm transition-colors duration-300">
+        <nav className="sticky top-0 z-50 bg-white/70 dark:bg-slate-900/70 backdrop-blur-lg border-b border-slate-200/50 dark:border-slate-800/50 shadow-sm transition-all duration-300">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between h-16 items-center">
-                    <div className="flex-shrink-0 flex items-center cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-                        <h1 className="text-2xl font-bold text-blue-700 dark:text-blue-500 tracking-tight">Anas<span className="text-slate-800 dark:text-slate-200">.systems</span></h1>
+                    <div className="flex-shrink-0 flex items-center cursor-pointer group" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+                        <h1 className="text-2xl font-bold tracking-tight">
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-teal-500 group-hover:from-blue-500 group-hover:to-teal-400 transition-all">Anas</span>
+                            <span className="text-slate-800 dark:text-slate-200">.systems</span>
+                        </h1>
                     </div>
 
                     {/* Desktop Nav */}

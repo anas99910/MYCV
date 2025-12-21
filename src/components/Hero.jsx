@@ -4,34 +4,43 @@ import Terminal from './ui/Terminal';
 const Hero = () => {
     return (
         <Section className="relative bg-slate-900 dark:bg-black text-white py-24 lg:py-32 overflow-hidden transition-colors duration-300">
-            <div className="absolute inset-0 opacity-10">
-                <div className="absolute top-0 left-0 w-full h-full bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]"></div>
+            {/* Animated Background */}
+            <div className="absolute inset-0 overflow-hidden pointer-events-none">
+                <div className="absolute -top-1/2 -left-1/2 w-[1000px] h-[1000px] bg-blue-500/20 rounded-full blur-3xl opacity-30 animate-blob"></div>
+                <div className="absolute -bottom-1/2 -right-1/2 w-[1000px] h-[1000px] bg-purple-500/20 rounded-full blur-3xl opacity-30 animate-blob animation-delay-2000"></div>
+                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-teal-500/10 rounded-full blur-3xl opacity-30 animate-blob animation-delay-4000"></div>
+                <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-[0.03]"></div>
             </div>
+
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                <div className="lg:grid lg:grid-cols-12 lg:gap-8 items-center">
+                <div className="lg:grid lg:grid-cols-12 lg:gap-16 items-center">
                     <div className="sm:text-center md:max-w-2xl md:mx-auto lg:col-span-7 lg:text-left">
-                        <div className="inline-flex items-center px-3 py-1 rounded-full border border-blue-500 bg-blue-500/20 text-blue-300 text-sm font-medium mb-6">
-                            <span className="flex h-2 w-2 rounded-full bg-green-400 mr-2 animate-pulse"></span>
+                        <div className="inline-flex items-center px-4 py-2 rounded-full border border-blue-500/30 bg-blue-500/10 backdrop-blur-sm text-blue-300 text-sm font-medium mb-8">
+                            <span className="flex h-2.5 w-2.5 rounded-full bg-green-400 mr-3 animate-pulse shadow-[0_0_8px_rgba(74,222,128,0.5)]"></span>
                             Available for IT Support & Field Ops Roles
                         </div>
-                        <h1 className="text-4xl tracking-tight font-extrabold sm:text-5xl md:text-6xl lg:text-5xl xl:text-6xl">
-                            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-500 to-teal-400 animate-gradient-x pb-2">Hi, I'm Anas Ben Chikhe</span>
-                            <span className="block text-slate-200 dark:text-blue-400 mt-2">Technical Field Support Engineer</span>
+                        <h1 className="text-4xl tracking-tight font-extrabold sm:text-5xl md:text-6xl lg:text-7xl mb-6">
+                            <span className="block text-slate-100">Hi, I'm</span>
+                            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-teal-400 animate-gradient-x">
+                                Anas Ben Chikhe
+                            </span>
                         </h1>
-                        <p className="mt-4 text-lg text-slate-300 sm:mt-6">
-                            Leveraging expertise in incident management, system integration, and user satisfaction to enhance operational efficiency in dynamic environments.
+                        <p className="mt-4 text-xl text-slate-300 sm:mt-6 leading-relaxed max-w-2xl">
+                            <span className="text-blue-400 font-semibold">Technical Field Support Engineer</span> specialized in incident management, system integration, and delivering exceptional user experiences.
                         </p>
-                        <div className="mt-8 sm:max-w-lg sm:mx-auto sm:text-center lg:text-left lg:mx-0 flex flex-col sm:flex-row gap-4">
-                            <a href="#contact" className="inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 md:py-4 md:text-lg shadow-lg shadow-blue-900/50 transition-all hover:scale-105">
+                        <div className="mt-10 sm:max-w-lg sm:mx-auto sm:text-center lg:text-left lg:mx-0 flex flex-col sm:flex-row gap-5">
+                            <a href="#contact" className="group relative inline-flex items-center justify-center px-8 py-4 text-base font-bold text-white transition-all duration-200 bg-blue-600 font-sans rounded-lg hover:bg-blue-700 hover:shadow-[0_0_20px_rgba(37,99,235,0.4)] hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-600">
                                 Contact Me
                             </a>
-                            <a href="#experience" className="inline-flex items-center justify-center px-8 py-3 border border-slate-500 text-base font-medium rounded-md text-slate-200 hover:bg-slate-800 hover:text-white md:py-4 md:text-lg transition-all">
+                            <a href="#experience" className="group relative inline-flex items-center justify-center px-8 py-4 text-base font-bold text-slate-300 transition-all duration-200 bg-slate-800/50 border border-slate-700 backdrop-blur-sm font-sans rounded-lg hover:bg-slate-800 hover:text-white hover:border-slate-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-slate-500">
                                 View Experience
                             </a>
                         </div>
                     </div>
-                    <div className="mt-12 relative sm:max-w-lg sm:mx-auto lg:mt-0 lg:max-w-none lg:mx-0 lg:col-span-5 lg:flex lg:items-center">
-                        <div className="relative mx-auto w-full rounded-lg shadow-lg lg:max-w-md">
+                    <div className="mt-16 lg:mt-0 lg:col-span-5 relative">
+                        {/* Glow effect behind terminal */}
+                        <div className="absolute -inset-4 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl opacity-20 blur-2xl animate-pulse"></div>
+                        <div className="relative rounded-xl shadow-2xl lg:max-w-md mx-auto transform hover:scale-[1.02] transition-transform duration-500">
                             <Terminal />
                         </div>
                     </div>
